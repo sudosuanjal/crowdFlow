@@ -10,6 +10,6 @@
   }
 
   body {
-    @apply bg-primary text-text min-h-screen font-poppins;
+    @apply bg-primary1  min-h-screen text-text1;
   }
 }
