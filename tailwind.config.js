@@ -10,6 +10,9 @@ export default {
         text: "#EEEEEE",
         "dark-4": "#1F1F22",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
     },
   },
   plugins: [],

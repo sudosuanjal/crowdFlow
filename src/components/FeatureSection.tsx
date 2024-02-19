@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowPointer,
   faArrowUpRightFromSquare,
   faCircleInfo,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWpexplorer } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
 
 const FeatureSection = () => {
   return (
@@ -26,10 +26,12 @@ const FeatureSection = () => {
             state. Stay updated and never miss out on the latest opportunities
             to learn, network, and showcase your skills.
           </p>
-          <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded">
-            Workshops
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </button>
+          <Link to={"/workshops"}>
+            <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded">
+              Workshops
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -49,10 +51,12 @@ const FeatureSection = () => {
             registration deadlines, ensuring you never miss a chance to
             participate in these exciting coding challenges.
           </p>
-          <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded">
-            Hackathons
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </button>
+          <Link to={"/hackathons"}>
+            <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded">
+              Hackathons
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -72,10 +76,12 @@ const FeatureSection = () => {
             insights, and connect with like-minded individuals who share your
             passion for learning and growth.
           </p>
-          <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded  ">
-            Seminar
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </button>
+          <Link to={"/seminars"}>
+            <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold py-2 px-4 mt-4 rounded  ">
+              Seminar
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

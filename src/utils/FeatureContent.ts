@@ -1,5 +1,3 @@
-// featureData.ts
-
 export interface Feature {
   icon: any;
   title: string;

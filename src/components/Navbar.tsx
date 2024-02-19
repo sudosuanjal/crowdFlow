@@ -1,6 +1,7 @@
 import { faBars, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -10,38 +11,94 @@ const Navbar = () => {
   };
   return (
     <nav className="">
-      <div className="flex flex-col bg-primary p-3 ">
+      <div className="flex flex-col bg-primary p-3 md:gap-20">
         <div className="flex flex-row justify-between items-center">
           <img
             src={`./icons/crowdFlow.svg`}
             alt="logo"
-            className=" w-15 h-18 md:w-25 md:h-10 mt-2" // Adjust width and height as needed
+            className=" w-15 h-18 md:w-25 md:h-10 mt-2"
           />
-          {isOpen ? (
-            <FontAwesomeIcon
-              onClick={handleClick}
-              icon={faBars}
-              className="text-2xl"
-            />
-          ) : (
-            <FontAwesomeIcon
-              onClick={handleClick}
-              icon={faCircleXmark}
-              className="text-2xl text-red-600"
-            />
-          )}
+          <div className="md:hidden">
+            {isOpen ? (
+              <FontAwesomeIcon
+                onClick={handleClick}
+                icon={faBars}
+                className="text-2xl"
+              />
+            ) : (
+              <FontAwesomeIcon
+                onClick={handleClick}
+                icon={faCircleXmark}
+                className="text-2xl text-red-600"
+              />
+            )}
+          </div>
+
+          <div className="hidden md:block">
+            <ul className="flex flex-row gap-4 text-lg font-bold justify-center items-center">
+              <li>
+                <Link to={"/"}>Home</Link>
+              </li>
+              <li>
+                <Link to={"/discover"}>Discover</Link>
+              </li>
+              <li>
+                <Link to={"/hackathons"}>Hackathons</Link>
+              </li>
+              <li>
+                <Link to={"/events"}>Events</Link>
+              </li>
+              <li>
+                <Link to={"/workshops"}>Workshops</Link>
+              </li>
+              <li>
+                <Link to={"/seminar"}>Seminar</Link>
+              </li>
+              <li>
+                <Link to={"/login"}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+                    Login
+                  </button>
+                </Link>
+              </li>
+              <li className="mr-5">
+                <Link to={"/signup"}>
+                  <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
+                    Signup
+                  </button>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
         <div
           onClick={handleClick}
           className={`${
-            isOpen ? "hidden" : "flex flex-row flex-wrap justify-between pt-2"
+            isOpen
+              ? "hidden"
+              : "flex flex-row flex-wrap justify-between pt-2 font-bold"
           }`}
         >
-          <p>Home</p>
-          <p>hackathons</p>
-          <p>workshops</p>
-          <p>events</p>
-          <p>seminars</p>
+          <ul className="flex flex-row flex-wrap gap-4 text-lg font-bold justify-center items-center">
+            <li>
+              <Link to={"/"}>Home</Link>
+            </li>
+            <li>
+              <Link to={"/discover"}>Discover</Link>
+            </li>
+            <li>
+              <Link to={"/hackathons"}>Hackathons</Link>
+            </li>
+            <li>
+              <Link to={"/events"}>Events</Link>
+            </li>
+            <li>
+              <Link to={"/workshops"}>Workshops</Link>
+            </li>
+            <li>
+              <Link to={"/seminar"}>Seminar</Link>
+            </li>
+          </ul>
         </div>
         <div
           onClick={handleClick}
@@ -51,8 +108,17 @@ const Navbar = () => {
               : "flex flex-row justify-center items-center gap-3 pt-2"
           }`}
         >
-          <p>log-In</p>
-          <p>Sign-In</p>
+          <Link to={"/login"}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+              Login
+            </button>
+          </Link>
+
+          <Link to={"/signup"}>
+            <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
+              Signup
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

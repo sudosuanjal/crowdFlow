@@ -1,11 +1,34 @@
+import { Route, Routes } from "react-router-dom";
 import Home from "./_root/pages/Home";
-import Navbar from "./components/Navbar";
+import AuthLayout from "./_auth/AuthLayout";
+import RootLayout from "./_root/RootLayout";
+import Hackathons from "./_root/pages/Hackathons";
+import Seminar from "./_root/pages/Seminar";
+import Events from "./_root/pages/Events";
+import Workshops from "./_root/pages/Workshops";
+import Discover from "./_root/pages/Discover";
+import Login from "./_auth/Login";
+import Signup from "./_auth/Signup";
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Home />
+      <main>
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route element={<RootLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/hackathons" element={<Hackathons />} />
+            <Route path="/seminar" element={<Seminar />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/workshops" element={<Workshops />} />
+            <Route path="/discover" element={<Discover />} />
+          </Route>
+        </Routes>
+      </main>
     </>
   );
 }

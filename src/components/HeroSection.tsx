@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const HeroSection = () => {
   const backgroundImageUrl = "url('/assets/hero.jpg')"; // Replace with your image path
 
@@ -18,9 +20,11 @@ const HeroSection = () => {
           state of Kerala. Engage with the community and maximize your
           potential.
         </p>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
-          Discover
-        </button>
+        <Link to={"/discover"}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
+            Discover
+          </button>
+        </Link>
       </div>
     </div>
   );
