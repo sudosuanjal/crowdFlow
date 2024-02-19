@@ -1,5 +1,3 @@
-import React from "react";
-
 const HeroSection = () => {
   const backgroundImageUrl = "url('/assets/hero.jpg')"; // Replace with your image path
 
