@@ -12,14 +12,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogIn } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthProvider";
 
 const formSchema = z.object({
   email: z.string(),
   password: z.string().min(8, { message: "password must be 8 characters" }),
 });
 const Login = () => {
-  // 1. Define your form.
+  const navigate = useNavigate();
+  const { mutateAsync: logIn } = useLogIn();
+  const { checkAuthUser } = useUserContext();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,11 +33,24 @@ const Login = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    const session = await logIn({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (!session) console.log("session failed");
+
+    const isLoggedIn = await checkAuthUser();
+
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      console.log("loggin failed");
+    }
   }
 
   return (
