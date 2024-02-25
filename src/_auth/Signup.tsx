@@ -19,7 +19,6 @@ import {
 } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthProvider";
 import Loader from "@/components/shared/Loader";
-import { log } from "console";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Too short" }).max(50),
