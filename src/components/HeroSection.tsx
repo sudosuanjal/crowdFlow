@@ -17,8 +17,8 @@ const HeroSection = () => {
         <p className="text-md mx-8">
           Explore thrilling hackathons, events, workshops, and seminars taking
           place at colleges in the <br className="hidden md:block" />
-          state of <span className="text-3xl ">Kerala</span> . Engage with the
-          community and maximize your potential.
+          state of <span className="text-2xl font-extrabold">Kerala</span> .
+          Engage with the community and maximize your potential.
         </p>
         <Link to={"/discover"}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">

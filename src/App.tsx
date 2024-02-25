@@ -9,6 +9,8 @@ import Workshops from "./_root/pages/Workshops";
 import Discover from "./_root/pages/Discover";
 import Login from "./_auth/Login";
 import Signup from "./_auth/Signup";
+import AdminLayout from "./_admin/AdminLayout";
+import Admin from "./_admin/pages/Admin";
 
 export default function App() {
   return (
@@ -26,6 +28,9 @@ export default function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/workshops" element={<Workshops />} />
             <Route path="/discover" element={<Discover />} />
+          </Route>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
       </main>
