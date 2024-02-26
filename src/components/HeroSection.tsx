@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
-  const backgroundImageUrl = "url('/assets/hero.jpg')"; // Replace with your image path
+  const backgroundImageUrl = "url('/assets/hero.jpg')";
 
   return (
     <div
