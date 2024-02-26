@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AdTopBar = () => {
   return (
@@ -12,10 +14,13 @@ const AdTopBar = () => {
         <div className="flex gap-4">
           <Button
             variant="ghost"
-            className="flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important"
+            className="flex gap-4 items-center justify-start hover:bg-transparent hover:text-dominant !important"
             // onClick={() => signOut()}
           >
-            <img src="/assets/logout.svg" alt="logout" />
+            <FontAwesomeIcon
+              className="text-2xl"
+              icon={faArrowRightFromBracket}
+            />
           </Button>
           <Link to={"/"} className="flex-center gap-3">
             <img

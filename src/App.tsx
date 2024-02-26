@@ -10,7 +10,8 @@ import Discover from "./_root/pages/Discover";
 import Login from "./_auth/Login";
 import Signup from "./_auth/Signup";
 import AdminLayout from "./_admin/AdminLayout";
-import Admin from "./_admin/pages/Admin";
+import { CreatePost } from "./_admin/pages/CreatePost";
+import Profile from "./_admin/pages/Profile";
 
 export default function App() {
   return (
@@ -30,7 +31,8 @@ export default function App() {
             <Route path="/discover" element={<Discover />} />
           </Route>
           <Route element={<AdminLayout />}>
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create" element={<CreatePost />} />
           </Route>
         </Routes>
       </main>
