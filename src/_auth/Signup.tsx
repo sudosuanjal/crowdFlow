@@ -64,7 +64,7 @@ const Signup = () => {
       form.reset();
       console.log("login /events");
 
-      navigate("/");
+      navigate("/profile");
     } else {
       console.log("loggin failed");
     }

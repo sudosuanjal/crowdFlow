@@ -47,7 +47,7 @@ const Login = () => {
 
     if (isLoggedIn) {
       form.reset();
-      navigate("/");
+      navigate("/profile");
     } else {
       console.log("loggin failed");
     }
