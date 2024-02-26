@@ -12,6 +12,7 @@ import Signup from "./_auth/Signup";
 import AdminLayout from "./_admin/AdminLayout";
 import { CreatePost } from "./_admin/pages/CreatePost";
 import Profile from "./_admin/pages/Profile";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/create" element={<CreatePost />} />
           </Route>
         </Routes>
+        <SpeedInsights />
       </main>
     </>
   );
