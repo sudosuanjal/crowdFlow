@@ -1,7 +1,7 @@
 import { TNewPost, TNewUser } from "@/types";
 import { account, appwriteConfig, avatars, datebases, storage } from "./config";
 import { ID, Query } from "appwrite";
-import { log } from "console";
+import { error } from "console";
 
 export async function createUser(user: TNewUser) {
   try {
@@ -118,6 +118,33 @@ export async function createPost(post: TNewPost) {
       await deleteFile(uploadedFile.$id);
       throw Error;
     }
+
+    const createdPost = await datebases.createDocument(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      ID.unique(),
+      {
+        creator: post.userId,
+        title: post.title,
+        sm_des: post.sm_des,
+        about: post.about,
+        date: post.date,
+        time: post.time,
+        imageURL: fileUrl,
+        type: post.type,
+        line: post.line,
+        paid: post.paid,
+        invite: post.invite,
+        imageID: uploadedFile.$id,
+      }
+    );
+
+    if (!createdPost) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+
+    return createdPost;
   } catch (error) {
     console.log(error);
   }
