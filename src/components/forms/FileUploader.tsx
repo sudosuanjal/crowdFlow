@@ -6,13 +6,13 @@ type FileUploaderProps = {
   fieldChange: (FILES: File[]) => void;
 };
 
-const FileUploader = ({ filedChange }: FileUploaderProps) => {
+const FileUploader = ({ fieldChange }: FileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState("");
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
       setFile(acceptedFiles);
-      filedChange(acceptedFiles);
+      fieldChange(acceptedFiles);
       setFileUrl(URL.createObjectURL(acceptedFiles[0]));
     },
     [file]

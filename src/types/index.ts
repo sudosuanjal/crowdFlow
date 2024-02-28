@@ -17,10 +17,16 @@ export type TUpdateUser = {
 
 export type TNewPost = {
   userId: string;
-  caption: string;
+  title: string;
+  sm_des: string;
+  about: string;
+  date: string;
+  time: string;
   file: File[];
-  location?: string;
-  tags?: string;
+  type: string;
+  line: string;
+  paid: string;
+  invite: string;
 };
 
 export type TUpdatePost = {

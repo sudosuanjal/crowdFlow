@@ -1,6 +1,7 @@
-import { TNewUser } from "@/types";
-import { account, appwriteConfig, avatars, datebases } from "./config";
+import { TNewPost, TNewUser } from "@/types";
+import { account, appwriteConfig, avatars, datebases, storage } from "./config";
 import { ID, Query } from "appwrite";
+import { log } from "console";
 
 export async function createUser(user: TNewUser) {
   try {
@@ -91,6 +92,74 @@ export async function getCurrentUser() {
     if (!currentUser) throw Error;
 
     return currentUser.documents[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function SignOut() {
+  try {
+    const session = await account.deleteSession("current");
+    return session;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createPost(post: TNewPost) {
+  try {
+    const uploadedFile = await upLoadFile(post.file[0]);
+
+    if (!uploadedFile) throw Error;
+
+    const fileUrl = await getFilePreview(uploadedFile.$id);
+
+    if (!fileUrl) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function upLoadFile(file: File) {
+  try {
+    const uploadfile = await storage.createFile(
+      appwriteConfig.storageId,
+      ID.unique(),
+      file
+    );
+
+    return uploadfile;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getFilePreview(fileId: string) {
+  try {
+    const fileUrl = await storage.getFilePreview(
+      appwriteConfig.storageId,
+      fileId,
+      2000,
+      2000,
+      "center",
+      100
+    );
+
+    if (!fileUrl) throw Error;
+
+    return fileUrl;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteFile(fileId: string) {
+  try {
+    await storage.deleteFile(appwriteConfig.storageId, fileId);
+    return { status: "OK" };
   } catch (error) {
     console.log(error);
   }
