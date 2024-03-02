@@ -14,6 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "./FileUploader";
+import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   title: z.string().min(2).max(2200),
@@ -29,6 +32,10 @@ const formSchema = z.object({
 });
 
 const PostForm = () => {
+  const navigate = useNavigate();
+  const { mutateAsync: createPost, isPending } = useCreatePost();
+  const { user } = useUserContext();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,10 +51,10 @@ const PostForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const newPost = await createPost({ ...values, userId: user.id });
+    if (!newPost) console.log("post not created");
+    navigate("/profile");
   }
   return (
     <Form {...form}>
@@ -112,7 +119,7 @@ const PostForm = () => {
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <FileUploader filedChange={field.onChange} />
+                <FileUploader fieldChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -228,7 +235,7 @@ const PostForm = () => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{isPending ? "loading..." : "Submit"}</Button>
       </form>
     </Form>
   );
