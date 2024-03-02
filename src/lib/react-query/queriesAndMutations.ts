@@ -31,3 +31,5 @@ export const useCreatePost = () => {
     },
   });
 };
+
+export const useUserRecentPosts = () => {};

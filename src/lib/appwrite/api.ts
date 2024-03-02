@@ -1,7 +1,6 @@
 import { TNewPost, TNewUser } from "@/types";
 import { account, appwriteConfig, avatars, datebases, storage } from "./config";
 import { ID, Query } from "appwrite";
-import { error } from "console";
 
 export async function createUser(user: TNewUser) {
   try {
@@ -187,6 +186,25 @@ export async function deleteFile(fileId: string) {
   try {
     await storage.deleteFile(appwriteConfig.storageId, fileId);
     return { status: "OK" };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// for getting the post of the current user
+export async function getUserRecentPosts(userId: string) {
+  if (!userId) return;
+
+  try {
+    const posts = await datebases.listDocuments(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
+    );
+
+    if (!posts) throw Error;
+
+    return posts;
   } catch (error) {
     console.log(error);
   }
