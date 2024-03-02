@@ -28,7 +28,8 @@ const formSchema = z.object({
 });
 const Signup = () => {
   const navigate = useNavigate();
-  const { checkAuthUser } = useUserContext();
+  const { checkAuthUser, user } = useUserContext();
+  console.log(`user:   ${user.id === "65e3ae652ec995bb8e3b"}`);
 
   const { mutateAsync: createUser, isPending: isCreatingAccount } =
     useCreateUserAccount();
@@ -71,107 +72,113 @@ const Signup = () => {
   }
 
   return (
-    <div className="bg-primarylight rounded-xl py-1 mx-10 m-auto mt-10 md:w-1/2 md:m-auto md:mt-10">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="my-10 mx-10 flex flex-col gap-5  "
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="flex flex-col justify-center items-center">
-                <FormLabel className="text-lg">Name</FormLabel>
-                <FormControl className="rounded-xl">
-                  <Input
-                    className="text-center"
-                    placeholder="enter ur name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <>
+      {user.id === "65e3ae652ec995bb8e3b" ? (
+        <div className="bg-primarylight rounded-xl py-1 mx-10 m-auto mt-10 md:w-1/2 md:m-auto md:mt-10">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="my-10 mx-10 flex flex-col gap-5  "
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col justify-center items-center">
+                    <FormLabel className="text-lg">Name</FormLabel>
+                    <FormControl className="rounded-xl">
+                      <Input
+                        className="text-center"
+                        placeholder="enter ur name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem className="flex flex-col justify-center items-center">
-                <FormLabel className="text-lg">Username</FormLabel>
-                <FormControl className="rounded-xl">
-                  <Input
-                    className="text-center"
-                    placeholder="enter ur username"
-                    {...field}
-                  />
-                </FormControl>
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col justify-center items-center">
+                    <FormLabel className="text-lg">Username</FormLabel>
+                    <FormControl className="rounded-xl">
+                      <Input
+                        className="text-center"
+                        placeholder="enter ur username"
+                        {...field}
+                      />
+                    </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="flex flex-col justify-center items-center">
-                <FormLabel className="text-lg">Email</FormLabel>
-                <FormControl className="rounded-xl">
-                  <Input
-                    className="text-center"
-                    placeholder="enter ur email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col justify-center items-center">
+                    <FormLabel className="text-lg">Email</FormLabel>
+                    <FormControl className="rounded-xl">
+                      <Input
+                        className="text-center"
+                        placeholder="enter ur email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="flex flex-col justify-center items-center">
-                <FormLabel className="text-lg">Password</FormLabel>
-                <FormControl className="rounded-xl">
-                  <Input
-                    className="text-center"
-                    placeholder="enter ur password"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1"
-            type="submit"
-          >
-            {" "}
-            {isCreatingAccount ? (
-              <div className=" flex flex-row flex-center gap-2">
-                <Loader />
-              </div>
-            ) : (
-              "Sign up"
-            )}
-          </Button>
-          <p className="text-center">
-            already have an account?
-            <br />
-            <Link className="text-dominant" to={"/login"}>
-              Login
-            </Link>
-          </p>
-        </form>
-      </Form>
-    </div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col justify-center items-center">
+                    <FormLabel className="text-lg">Password</FormLabel>
+                    <FormControl className="rounded-xl">
+                      <Input
+                        className="text-center"
+                        placeholder="enter ur password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1"
+                type="submit"
+              >
+                {" "}
+                {isCreatingAccount ? (
+                  <div className=" flex flex-row flex-center gap-2">
+                    <Loader />
+                  </div>
+                ) : (
+                  "Sign up"
+                )}
+              </Button>
+              <p className="text-center">
+                already have an account?
+                <br />
+                <Link className="text-dominant" to={"/login"}>
+                  Login
+                </Link>
+              </p>
+            </form>
+          </Form>
+        </div>
+      ) : (
+        <div>you are not admin</div>
+      )}
+    </>
   );
 };
 
