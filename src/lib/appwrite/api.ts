@@ -191,6 +191,21 @@ export async function deleteFile(fileId: string) {
   }
 }
 
+export async function getRecentPosts() {
+  try {
+    const posts = await datebases.listDocuments(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(30)]
+    );
+
+    if (!posts) throw Error;
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // for getting the post of the current user
 export async function getUserRecentPosts(userId: string) {
   if (!userId) return;

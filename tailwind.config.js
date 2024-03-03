@@ -21,6 +21,7 @@ module.exports = {
         primary1: "#222831",
         primarylight: "#393E46",
         dominant: "#00ADB5",
+        btn: "#edb007",
         text1: "#EEEEEE",
         "dark-4": "#1F1F22",
         border: "hsl(var(--border))",

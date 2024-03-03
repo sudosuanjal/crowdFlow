@@ -1,6 +1,12 @@
 import { TNewPost, TNewUser } from "@/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SignOut, createPost, createUser, logIn } from "../appwrite/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  SignOut,
+  createPost,
+  createUser,
+  getRecentPosts,
+  logIn,
+} from "../appwrite/api";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -32,4 +38,9 @@ export const useCreatePost = () => {
   });
 };
 
-export const useUserRecentPosts = () => {};
+export const useRecentPosts = () => {
+  return useQuery({
+    queryKey: [],
+    queryFn: getRecentPosts,
+  });
+};
