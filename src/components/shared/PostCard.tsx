@@ -18,7 +18,7 @@ const PostCard = ({ post }: PostCardProps) => {
   console.log(post);
 
   return (
-    <div className="flex bg-primarylight rounded-xl p-3  flex-col gap-3 mb-10">
+    <div className="flex bg-primarylight rounded-xl p-3 mb-7  flex-col gap-3 mb-">
       <div className="flex flex-row gap-2 items-center justify-between">
         <div className="flex flex-row gap-2">
           <img

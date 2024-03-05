@@ -6,8 +6,10 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useUserContext } from "@/context/AuthProvider";
 
 const AdLeftbar = () => {
+  const { user } = useUserContext();
   const { pathname } = useLocation();
   const isProfile = pathname === "/profile";
   const isCreate = pathname === "/create";
@@ -25,8 +27,8 @@ const AdLeftbar = () => {
             className="h-14 w-14 rounded-full"
           />
           <div className="flex flex-col">
-            <p className="body-bold"> name</p>
-            <p className="small-regular text-light-3">@username</p>
+            <p className="body-bold">{user.name}</p>
+            <p className="small-regular text-light-3">@{user.username}</p>
           </div>
         </Link>
 

@@ -4,6 +4,7 @@ import {
   SignOut,
   createPost,
   createUser,
+  getRecentHacks,
   getRecentPosts,
   logIn,
 } from "../appwrite/api";
@@ -42,5 +43,12 @@ export const useRecentPosts = () => {
   return useQuery({
     queryKey: [],
     queryFn: getRecentPosts,
+  });
+};
+
+export const useRecentHacks = () => {
+  return useQuery({
+    queryKey: [],
+    queryFn: getRecentHacks,
   });
 };
