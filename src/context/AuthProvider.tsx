@@ -31,6 +31,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAuthUser = async () => {
     setIsLoading(true);
+    console.log("===>inside checkAuthUser");
+
     try {
       const currentAccount = await getCurrentUser();
       if (currentAccount) {
@@ -46,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(true);
         return true;
       }
-
+      setIsAuthenticated(false);
       return false;
     } catch (e) {
       console.log(e);
@@ -58,14 +60,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const cookieFallback = localStorage.getItem("cookieFallback");
-    console.log("here at auth provider");
+
+    console.log("===>here at auth provider");
 
     if (
       cookieFallback === "[]" ||
       cookieFallback === null ||
       cookieFallback === undefined
     ) {
-      navigate("/signup");
+      navigate("/");
     }
     checkAuthUser();
   }, []);

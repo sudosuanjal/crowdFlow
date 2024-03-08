@@ -22,7 +22,9 @@ export const useLogIn = () => {
 };
 
 export const useSignOut = () => {
-  return useMutation({ mutationFn: SignOut });
+  return useMutation({
+    mutationFn: SignOut,
+  });
 };
 
 //posts

@@ -1,14 +1,31 @@
+import { useUserContext } from "@/context/AuthProvider";
+import { useSignOut } from "@/lib/react-query/queriesAndMutations";
 import { faBars, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
+  const { isAuthenticated, setIsAuthenticated } = useUserContext();
+  const { mutate: SignOut, isSuccess } = useSignOut();
+
+  console.log("user from navbar: " + isAuthenticated);
+  console.log("Success: " + isSuccess);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setIsAuthenticated((prevIsAuthenticated) => {
+        return !prevIsAuthenticated;
+      });
+      navigate("/");
+    }
+  }, [isSuccess]);
   return (
     <nav className="">
       <div className="flex flex-col bg-primary p-3 md:gap-20">
@@ -54,20 +71,45 @@ const Navbar = () => {
               <li>
                 <Link to={"/seminar"}>Seminar</Link>
               </li>
-              <li>
-                <Link to={"/login"}>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
-                    Login
-                  </button>
-                </Link>
-              </li>
-              <li className="mr-5">
-                <Link to={"/signup"}>
-                  <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
-                    Signup
-                  </button>
-                </Link>
-              </li>
+              {isAuthenticated ? (
+                <>
+                  <li>
+                    <Link to={"/profile"}>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+                        Admin Panel
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="mr-5">
+                    <button
+                      className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1"
+                      onClick={() => {
+                        console.log("clicked");
+                        SignOut();
+                      }}
+                    >
+                      Sign-out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to={"/login"}>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+                        Login
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="mr-5">
+                    <Link to={"/signup"}>
+                      <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
+                        Signup
+                      </button>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
@@ -108,17 +150,38 @@ const Navbar = () => {
               : "flex flex-row justify-center items-center gap-3 pt-2"
           }`}
         >
-          <Link to={"/login"}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
-              Login
-            </button>
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link to={"/profile"}>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+                  Admin Panel
+                </button>
+              </Link>
 
-          <Link to={"/signup"}>
-            <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
-              Signup
-            </button>
-          </Link>
+              <button
+                className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1"
+                onClick={() => {
+                  SignOut();
+                }}
+              >
+                Sign-out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded">
+                  Login
+                </button>
+              </Link>
+
+              <Link to={"/signup"}>
+                <button className="border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-bold rounded p-1">
+                  Signup
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
