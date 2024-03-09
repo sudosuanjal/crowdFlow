@@ -15,10 +15,10 @@ type PostCardProps = {
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
   if (!post.creator) return;
-  console.log(post);
+  console.log(post.imageURL);
 
   return (
-    <div className="flex bg-primarylight rounded-xl p-3 mb-7  flex-col gap-3 mb-">
+    <div className="flex bg-primarylight rounded-xl p-3 mb-7  flex-col gap-3 ">
       <div className="flex flex-row gap-2 items-center justify-between">
         <div className="flex flex-row gap-2">
           <img
@@ -34,8 +34,11 @@ const PostCard = ({ post }: PostCardProps) => {
           <FontAwesomeIcon icon={faPenToSquare} className="text-2xl" />
         </div>
       </div>
-      <Link to={"/profile"}>
-        <img src={post.imageURL} className="rounded-xl object-fill " />
+      <Link to={"/profile"} className="">
+        <img
+          src={post.imageURL}
+          className="rounded-xl object-center h-auto m-auto w-full"
+        />
       </Link>
       <div className="flex gap-1 flex-wrap">
         <p className="bg-primary1 rounded-xl px-3 py-1">{post.type}</p>
