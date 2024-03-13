@@ -221,6 +221,25 @@ export async function getRecentHacks() {
   }
 }
 
+export async function getRecentSemis() {
+  try {
+    const posts = await datebases.listDocuments(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      [
+        Query.equal("type", "seminar"),
+        Query.limit(30),
+        Query.orderDesc("$createdAt"),
+      ]
+    );
+
+    if (!posts) throw Error;
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // for getting the post of the current user
 export async function getUserRecentPosts(userId: string) {
   if (!userId) return;

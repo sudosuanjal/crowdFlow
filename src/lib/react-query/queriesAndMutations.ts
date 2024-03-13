@@ -6,9 +6,11 @@ import {
   createUser,
   getRecentHacks,
   getRecentPosts,
+  getRecentSemis,
   logIn,
 } from "../appwrite/api";
 
+//get req
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (user: TNewUser) => createUser(user),
@@ -52,5 +54,12 @@ export const useRecentHacks = () => {
   return useQuery({
     queryKey: [],
     queryFn: getRecentHacks,
+  });
+};
+
+export const useRecentSemis = () => {
+  return useQuery({
+    queryKey: [],
+    queryFn: getRecentSemis,
   });
 };
