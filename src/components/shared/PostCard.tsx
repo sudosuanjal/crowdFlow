@@ -3,19 +3,30 @@ import {
   faCalendar,
   faLocationDot,
   faPenToSquare,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { useDeletePost } from "@/lib/react-query/queriesAndMutations";
 type PostCardProps = {
   post: Models.Document;
 };
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
+  const data = {
+    postID: post.$id,
+    imageID: post.imageID,
+  };
+  const { mutate: deletePost } = useDeletePost();
   if (!post.creator) return;
-  console.log(post.imageURL);
+  console.log("postId: " + data.imageID);
+
+  const handleDeletePost = () => {
+    deletePost({ postID: post.$id, imageID: post?.imageID });
+  };
 
   return (
     <div className="flex bg-primarylight rounded-xl p-3 mb-7  flex-col gap-3 ">
@@ -30,9 +41,13 @@ const PostCard = ({ post }: PostCardProps) => {
             <p className="text-sm font-medium">@{post.creator.username}</p>
           </div>
         </div>
-        <div className={`${user.id !== post.creator.$id && "hidden"} `}>
+
+        <Link
+          to={`/update-post/${post.$id}`}
+          className={`${user.id !== post.creator.$id && "hidden"} `}
+        >
           <FontAwesomeIcon icon={faPenToSquare} className="text-2xl" />
-        </div>
+        </Link>
       </div>
       <Link to={"/profile"} className="">
         <img
@@ -64,9 +79,23 @@ const PostCard = ({ post }: PostCardProps) => {
           <p className="font-medium text-sm">Kochi</p>
         </div>
       </div>
-      <Button className="bg-btn rounded-xl text-black font-bold">
-        <a href="https://www.instagram.com/sudosuanjal">Register</a>
-      </Button>
+      <div className="flex flex-row w-full gap-2">
+        <Button
+          className={`${
+            user.id === post.creator.$id ? "w-3/4" : "w-full"
+          } bg-btn rounded-xl text-black font-bold`}
+        >
+          <a href="https://www.instagram.com/sudosuanjal">Register</a>
+        </Button>
+        {user.id === post.creator.$id ? (
+          <Button
+            className="bg-btn rounded-xl text-black font-bold w-1/4"
+            onClick={handleDeletePost}
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </Button>
+        ) : null}
+      </div>
     </div>
   );
 };

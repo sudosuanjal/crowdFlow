@@ -296,3 +296,39 @@ export async function getUserRecentPosts(userId: string) {
     console.log(error);
   }
 }
+
+export async function getPostById(postId: string) {
+  try {
+    const post = await datebases.getDocument(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    );
+
+    if (!post) throw Error;
+
+    return post;
+  } catch (error) {
+    console.log();
+  }
+}
+
+export async function deletePost(postID?: string, imageID?: string) {
+  if (!postID || !imageID) return;
+
+  try {
+    const statusCode = await datebases.deleteDocument(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      postID
+    );
+
+    if (!statusCode) throw Error;
+
+    await deleteFile(imageID);
+
+    return { status: "Ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}

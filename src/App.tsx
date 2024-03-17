@@ -34,6 +34,7 @@ export default function App() {
           <Route element={<AdminLayout />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create" element={<CreatePost />} />
+            {/* <Route path="/update-post/:id" element={<EditPost />} /> */}
           </Route>
         </Routes>
         <SpeedInsights />

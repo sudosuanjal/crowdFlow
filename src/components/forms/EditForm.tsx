@@ -32,23 +32,29 @@ const formSchema = z.object({
   invite: z.string().min(2),
 });
 
-const PostForm = () => {
+type EditFormProps = {
+  post?: Models.Document;
+};
+
+const EditForm = (post: EditFormProps) => {
   const navigate = useNavigate();
   const { mutateAsync: createPost, isPending } = useCreatePost();
   const { user } = useUserContext();
 
+  console.log(post);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
+      title: post ? post.post?.title : "",
       file: [],
-      sm_des: "",
-      about: "",
-      date: "",
-      time: "",
-      line: "",
-      paid: "",
-      invite: "",
+      sm_des: post ? post.post?.sm_des : "",
+      about: post ? post.post?.about : "",
+      date: post ? post.post?.date : "",
+      time: post ? post.post?.time : "",
+      line: post ? post.post?.line : "",
+      paid: post ? post.post?.paid : "",
+      invite: post ? post.post?.invite : "",
     },
   });
 
@@ -119,7 +125,10 @@ const PostForm = () => {
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <FileUploader fieldChange={field.onChange} mediaUrl="" />
+                <FileUploader
+                  fieldChange={field.onChange}
+                  mediaUrl={post.post?.imageURL}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -241,4 +250,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default EditForm;

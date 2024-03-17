@@ -4,6 +4,8 @@ import {
   SignOut,
   createPost,
   createUser,
+  deletePost,
+  getPostById,
   getRecentEvents,
   getRecentHacks,
   getRecentPosts,
@@ -83,5 +85,31 @@ export const useRecentWorks = () => {
   return useQuery({
     queryKey: ["getRecentWorks"],
     queryFn: getRecentWorks,
+  });
+};
+
+export const usePostById = (postId: string) => {
+  return useQuery({
+    queryKey: ["getPostById", postId],
+    queryFn: () => getPostById(postId),
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ postID, imageID }: { postID?: string; imageID: string }) =>
+      deletePost(postID, imageID),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "getRecentPosts",
+          "getRecentHacks",
+          "getRecentSemis",
+          "getRecentEvents",
+          "getRecentWorks",
+        ],
+      });
+    },
   });
 };
