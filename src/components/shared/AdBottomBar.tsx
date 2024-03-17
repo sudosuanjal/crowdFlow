@@ -8,7 +8,7 @@ const AdBottomBar = () => {
   const isCreate = pathname === "/create";
 
   return (
-    <section className="z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-dark-2 px-5 py-4 flex flex-row justify-around md:hidden">
+    <section className="z-50 flex-between bg-black w-full sticky bottom-0 rounded-t-[20px] px-5 py-4 flex flex-row justify-around md:hidden">
       <Link
         className={`${
           isProfile && "bg-primarylight rounded-[10px]"
@@ -34,7 +34,7 @@ const AdBottomBar = () => {
           icon={faCirclePlus}
         />
 
-        <p className=" tiny-medium text-light-2">Profile</p>
+        <p className=" tiny-medium text-light-2">Create Post</p>
       </Link>
     </section>
   );

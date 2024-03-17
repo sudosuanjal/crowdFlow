@@ -68,7 +68,6 @@ const PostForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Title</FormLabel>
-
               <FormControl>
                 <Input
                   className="rounded-xl border-none bg-primarylight"
