@@ -7,7 +7,7 @@ const Seminar = () => {
   return (
     <>
       <div className="flex flex-1">
-        <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar">
+        <div className="flex flex-col flex-1 items-center gap-10  py-10 px-5 md:px-8 lg:p-14">
           <div className="max-w-screen-sm flex flex-col items-center w-full gap-6 md:gap-9">
             <h2 className="text-[24px] font-bold leading-[140%] tracking-tighter md:text-[30px] text-left w-full">
               Seminars

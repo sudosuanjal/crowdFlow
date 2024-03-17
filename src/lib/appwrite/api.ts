@@ -259,6 +259,25 @@ export async function getRecentEvents() {
   }
 }
 
+export async function getRecentWorks() {
+  try {
+    const posts = await datebases.listDocuments(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      [
+        Query.equal("type", "workshop"),
+        Query.limit(30),
+        Query.orderDesc("$createdAt"),
+      ]
+    );
+
+    if (!posts) throw Error;
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // for getting the post of the current user
 export async function getUserRecentPosts(userId: string) {
   if (!userId) return;

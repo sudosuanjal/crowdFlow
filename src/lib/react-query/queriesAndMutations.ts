@@ -8,6 +8,7 @@ import {
   getRecentHacks,
   getRecentPosts,
   getRecentSemis,
+  getRecentWorks,
   logIn,
 } from "../appwrite/api";
 
@@ -38,7 +39,13 @@ export const useCreatePost = () => {
     mutationFn: (post: TNewPost) => createPost(post),
     onSuccess: () => {
       queryClinet.invalidateQueries({
-        queryKey: ["getRecentPosts"],
+        queryKey: [
+          "getRecentPosts",
+          "getRecentHacks",
+          "getRecentSemis",
+          "getRecentEvents",
+          "getRecentWorks",
+        ],
       });
     },
   });
@@ -53,21 +60,28 @@ export const useRecentPosts = () => {
 
 export const useRecentHacks = () => {
   return useQuery({
-    queryKey: ["getRecentPosts"],
+    queryKey: ["getRecentHacks"],
     queryFn: getRecentHacks,
   });
 };
 
 export const useRecentSemis = () => {
   return useQuery({
-    queryKey: ["getRecentPosts"],
+    queryKey: ["getRecentSemis"],
     queryFn: getRecentSemis,
   });
 };
 
 export const useRecentEvents = () => {
   return useQuery({
-    queryKey: ["getRecentPosts"],
+    queryKey: ["getRecentEvents"],
     queryFn: getRecentEvents,
+  });
+};
+
+export const useRecentWorks = () => {
+  return useQuery({
+    queryKey: ["getRecentWorks"],
+    queryFn: getRecentWorks,
   });
 };
