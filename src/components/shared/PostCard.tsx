@@ -20,7 +20,7 @@ const PostCard = ({ post }: PostCardProps) => {
     postID: post.$id,
     imageID: post.imageID,
   };
-  const { mutate: deletePost } = useDeletePost();
+  const { mutate: deletePost, isPending } = useDeletePost();
   if (!post.creator) return;
   console.log("postId: " + data.imageID);
 
@@ -92,7 +92,11 @@ const PostCard = ({ post }: PostCardProps) => {
             className="bg-btn rounded-xl text-black font-bold w-1/4"
             onClick={handleDeletePost}
           >
-            <FontAwesomeIcon icon={faTrashCan} />
+            {isPending ? (
+              <p>loading..</p>
+            ) : (
+              <FontAwesomeIcon icon={faTrashCan} />
+            )}
           </Button>
         ) : null}
       </div>

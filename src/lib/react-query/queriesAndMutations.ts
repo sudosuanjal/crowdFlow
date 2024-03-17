@@ -41,13 +41,7 @@ export const useCreatePost = () => {
     mutationFn: (post: TNewPost) => createPost(post),
     onSuccess: () => {
       queryClinet.invalidateQueries({
-        queryKey: [
-          "getRecentPosts",
-          "getRecentHacks",
-          "getRecentSemis",
-          "getRecentEvents",
-          "getRecentWorks",
-        ],
+        queryKey: ["getRecentPosts"],
       });
     },
   });
@@ -62,28 +56,28 @@ export const useRecentPosts = () => {
 
 export const useRecentHacks = () => {
   return useQuery({
-    queryKey: ["getRecentHacks"],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentHacks,
   });
 };
 
 export const useRecentSemis = () => {
   return useQuery({
-    queryKey: ["getRecentSemis"],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentSemis,
   });
 };
 
 export const useRecentEvents = () => {
   return useQuery({
-    queryKey: ["getRecentEvents"],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentEvents,
   });
 };
 
 export const useRecentWorks = () => {
   return useQuery({
-    queryKey: ["getRecentWorks"],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentWorks,
   });
 };
@@ -102,13 +96,7 @@ export const useDeletePost = () => {
       deletePost(postID, imageID),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          "getRecentPosts",
-          "getRecentHacks",
-          "getRecentSemis",
-          "getRecentEvents",
-          "getRecentWorks",
-        ],
+        queryKey: ["getRecentPosts"],
       });
     },
   });
