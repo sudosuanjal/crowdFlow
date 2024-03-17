@@ -17,7 +17,6 @@ import FileUploader from "./FileUploader";
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { Models } from "appwrite";
 
 const formSchema = z.object({
   title: z.string().min(2).max(2200),
@@ -242,3 +241,5 @@ const PostForm = () => {
 };
 
 export default PostForm;
+
+// dagfakdabdakbjdf
