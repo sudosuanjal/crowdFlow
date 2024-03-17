@@ -4,6 +4,7 @@ import {
   SignOut,
   createPost,
   createUser,
+  getRecentEvents,
   getRecentHacks,
   getRecentPosts,
   getRecentSemis,
@@ -45,21 +46,28 @@ export const useCreatePost = () => {
 
 export const useRecentPosts = () => {
   return useQuery({
-    queryKey: [],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentPosts,
   });
 };
 
 export const useRecentHacks = () => {
   return useQuery({
-    queryKey: [],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentHacks,
   });
 };
 
 export const useRecentSemis = () => {
   return useQuery({
-    queryKey: [],
+    queryKey: ["getRecentPosts"],
     queryFn: getRecentSemis,
+  });
+};
+
+export const useRecentEvents = () => {
+  return useQuery({
+    queryKey: ["getRecentPosts"],
+    queryFn: getRecentEvents,
   });
 };
