@@ -11,6 +11,7 @@ import {
   getRecentPosts,
   getRecentSemis,
   getRecentWorks,
+  getUserRecentPosts,
   logIn,
 } from "../appwrite/api";
 
@@ -99,5 +100,12 @@ export const useDeletePost = () => {
         queryKey: ["getRecentPosts"],
       });
     },
+  });
+};
+
+export const useUserPosts = (userId: string) => {
+  return useQuery({
+    queryKey: ["getRecentPosts"],
+    queryFn: () => getUserRecentPosts(userId),
   });
 };

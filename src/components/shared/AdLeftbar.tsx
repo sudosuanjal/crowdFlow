@@ -14,7 +14,7 @@ const AdLeftbar = () => {
   const isProfile = pathname === "/profile";
   const isCreate = pathname === "/create";
   return (
-    <nav className="hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-primarylight">
+    <nav className="hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-primarylight fixed h-full">
       <div className="flex flex-col gap-11">
         <Link to="/" className="flex gap-3 items-center">
           <img src="/icons/crowdFlow.svg" alt="logo" width={107} height={36} />
