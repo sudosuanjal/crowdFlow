@@ -30,6 +30,7 @@ const formSchema = z.object({
   line: z.string().min(2),
   paid: z.string().min(2),
   invite: z.string().min(2),
+  link: z.string().min(2),
 });
 
 type EditFormProps = {
@@ -55,6 +56,7 @@ const EditForm = (post: EditFormProps) => {
       line: post ? post.post?.line : "",
       paid: post ? post.post?.paid : "",
       invite: post ? post.post?.invite : "",
+      link: post ? post.post?.link : "",
     },
   });
 
@@ -236,6 +238,26 @@ const EditForm = (post: EditFormProps) => {
                 <Input
                   className="rounded-xl border-none bg-primarylight"
                   placeholder="type ur answer"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="link"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Invitation ( "open for all" or "only for current college
+                students" )
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="rounded-xl border-none bg-primarylight"
+                  placeholder="inlcude https://"
                   {...field}
                 />
               </FormControl>
