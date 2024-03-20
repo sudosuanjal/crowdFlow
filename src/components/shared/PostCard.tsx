@@ -28,6 +28,10 @@ const PostCard = ({ post }: PostCardProps) => {
     deletePost({ postID: post.$id, imageID: post?.imageID });
   };
 
+  const handleButtonClick = () => {
+    window.open(post.link, "_blank");
+  };
+
   return (
     <div className="flex bg-primarylight rounded-xl p-3 mb-7  flex-col gap-3 ">
       <div className="flex flex-row gap-2 items-center justify-between">
@@ -81,13 +85,12 @@ const PostCard = ({ post }: PostCardProps) => {
       </div>
       <div className="flex flex-row w-full gap-2">
         <Button
+          onClick={handleButtonClick}
           className={`${
             user.id === post.creator.$id ? "w-3/4" : "w-full"
           } bg-btn rounded-xl text-black font-bold`}
         >
-          <a href={post.link} target="_blank">
-            Register
-          </a>
+          <p>Register</p>
         </Button>
         {user.id === post.creator.$id ? (
           <Button
