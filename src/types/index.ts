@@ -27,6 +27,7 @@ export type TNewPost = {
   line: string;
   paid: string;
   invite: string;
+  link: string;
 };
 
 export type TUpdatePost = {

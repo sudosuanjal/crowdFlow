@@ -85,7 +85,9 @@ const PostCard = ({ post }: PostCardProps) => {
             user.id === post.creator.$id ? "w-3/4" : "w-full"
           } bg-btn rounded-xl text-black font-bold`}
         >
-          <a href="https://www.instagram.com/sudosuanjal">Register</a>
+          <a href={post.link} target="_blank">
+            Register
+          </a>
         </Button>
         {user.id === post.creator.$id ? (
           <Button

@@ -135,6 +135,7 @@ export async function createPost(post: TNewPost) {
         paid: post.paid,
         invite: post.invite,
         imageID: uploadedFile.$id,
+        link: post.link,
       }
     );
 
