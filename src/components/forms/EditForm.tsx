@@ -49,6 +49,7 @@ const EditForm = (post: EditFormProps) => {
       about: post ? post.post?.about : "",
       date: post ? post.post?.date : "",
       time: post ? post.post?.time : "",
+      type: post ? post.post?.type : "",
       line: post ? post.post?.line : "",
       paid: post ? post.post?.paid : "",
       invite: post ? post.post?.invite : "",
