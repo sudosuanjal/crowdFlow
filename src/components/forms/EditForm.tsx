@@ -14,8 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "./FileUploader";
-import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
-import { useUserContext } from "@/context/AuthProvider";
+import { useUpdatePost } from "@/lib/react-query/queriesAndMutations";
 import { useNavigate } from "react-router-dom";
 import { Models } from "appwrite";
 
@@ -39,10 +38,7 @@ type EditFormProps = {
 
 const EditForm = (post: EditFormProps) => {
   const navigate = useNavigate();
-  const { mutateAsync: createPost, isPending } = useCreatePost();
-  const { user } = useUserContext();
-
-  console.log(post);
+  const { mutateAsync: updatePost, isPending } = useUpdatePost();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,10 +57,20 @@ const EditForm = (post: EditFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const newPost = await createPost({ ...values, userId: user.id });
-    if (!newPost) console.log("post not created");
+    console.log("btn clicked");
+
+    const updatedPost = await updatePost({
+      ...values,
+      postId: post.post?.$id || "",
+      imageID: post.post?.imageID,
+      imageURL: post.post?.imageURL,
+    });
+    if (!updatedPost) console.log("post not created");
     navigate("/profile");
   }
+
+  // console.log(typeof post.post?.$id);
+
   return (
     <Form {...form}>
       <form

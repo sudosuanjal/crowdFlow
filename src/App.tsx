@@ -13,6 +13,7 @@ import AdminLayout from "./_admin/AdminLayout";
 import { CreatePost } from "./_admin/pages/CreatePost";
 import Profile from "./_admin/pages/Profile";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import EditPost from "./_admin/pages/EditPost";
 
 export default function App() {
   return (
@@ -34,7 +35,7 @@ export default function App() {
           <Route element={<AdminLayout />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create" element={<CreatePost />} />
-            {/* <Route path="/update-post/:id" element={<EditPost />} /> */}
+            <Route path="/update-post/:id" element={<EditPost />} />
           </Route>
         </Routes>
         <SpeedInsights />

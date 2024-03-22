@@ -32,12 +32,19 @@ export type TNewPost = {
 
 export type TUpdatePost = {
   postId: string;
-  caption: string;
-  imageId: string;
-  imageUrl: URL;
+  imageID: string;
+  imageURL: URL;
+  title: string;
+  sm_des: string;
+  about: string;
+  date: string;
+  time: string;
   file: File[];
-  location?: string;
-  tags?: string;
+  type: string;
+  line: string;
+  paid: string;
+  invite: string;
+  link: string;
 };
 
 export type TUser = {

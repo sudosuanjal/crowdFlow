@@ -1,4 +1,4 @@
-import { TNewPost, TNewUser } from "@/types";
+import { TNewPost, TNewUser, TUpdatePost } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   SignOut,
@@ -13,6 +13,7 @@ import {
   getRecentWorks,
   getUserRecentPosts,
   logIn,
+  updatePost,
 } from "../appwrite/api";
 
 //get req
@@ -107,5 +108,17 @@ export const useUserPosts = (userId: string) => {
   return useQuery({
     queryKey: ["getRecentPosts"],
     queryFn: () => getUserRecentPosts(userId),
+  });
+};
+
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (post: TUpdatePost) => updatePost(post),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["getPostById", data?.$id],
+      });
+    },
   });
 };

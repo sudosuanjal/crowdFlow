@@ -1,4 +1,4 @@
-import { TNewPost, TNewUser } from "@/types";
+import { TNewPost, TNewUser, TUpdatePost } from "@/types";
 import { account, appwriteConfig, avatars, datebases, storage } from "./config";
 import { ID, Query } from "appwrite";
 
@@ -329,6 +329,66 @@ export async function deletePost(postID?: string, imageID?: string) {
     await deleteFile(imageID);
 
     return { status: "Ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updatePost(post: TUpdatePost) {
+  const file = post.file.length > 0;
+  console.log("length: " + post.file.length);
+
+  try {
+    let image = {
+      imageURl: post.imageURL,
+      imageID: post.imageID,
+    };
+
+    if (file) {
+      const uploadedFile = await upLoadFile(post.file[0]);
+      if (!uploadedFile) throw Error;
+
+      const fileUrl = await getFilePreview(uploadedFile.$id);
+      if (!fileUrl) {
+        await deleteFile(uploadedFile.$id);
+        throw Error;
+      }
+
+      image = { ...image, imageURl: fileUrl, imageID: uploadedFile.$id };
+    }
+
+    const updatedPost = await datebases.updateDocument(
+      appwriteConfig.datebaseId,
+      appwriteConfig.postCollectionId,
+      post.postId,
+      {
+        title: post.title,
+        sm_des: post.sm_des,
+        about: post.about,
+        date: post.date,
+        time: post.time,
+        imageURL: image.imageURl,
+        type: post.type,
+        line: post.line,
+        paid: post.paid,
+        invite: post.invite,
+        imageID: image.imageID,
+        link: post.link,
+      }
+    );
+
+    if (!updatedPost) {
+      if (file) {
+        await deleteFile(image.imageID);
+      }
+      throw Error;
+    }
+
+    if (file) {
+      await deleteFile(post.imageID);
+    }
+
+    return updatedPost;
   } catch (error) {
     console.log(error);
   }
