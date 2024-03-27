@@ -17,6 +17,7 @@ import FileUploader from "./FileUploader";
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const formSchema = z.object({
   title: z.string().min(2).max(2200),
@@ -25,10 +26,18 @@ const formSchema = z.object({
   about: z.string().min(2).max(2200),
   date: z.string().min(2).max(10),
   time: z.string().min(2),
-  type: z.string().min(2),
-  line: z.string().min(2),
-  paid: z.string().min(2),
-  invite: z.string().min(2),
+  type: z.enum(["hackathon", "workshop", "seminar", "event"], {
+    required_error: "You need to select a program type",
+  }),
+  line: z.enum(["offline", "online"], {
+    required_error: "You need to select a type",
+  }),
+  paid: z.enum(["free", "paid"], {
+    required_error: "You need to select a type",
+  }),
+  invite: z.enum(["open for all", "only for current college students"], {
+    required_error: "You need to select a type",
+  }),
   link: z.string().min(2),
 });
 
@@ -46,18 +55,17 @@ const PostForm = () => {
       about: "",
       date: "",
       time: "",
-      line: "",
-      paid: "",
-      invite: "",
       link: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
     const newPost = await createPost({ ...values, userId: user.id });
     if (!newPost) console.log("post not created");
     navigate("/profile");
   }
+
   return (
     <Form {...form}>
       <form
@@ -160,37 +168,75 @@ const PostForm = () => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="type"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                What type of program (hackathon, seminar, events, workshops)
-              </FormLabel>
+            <FormItem className="space-y-3">
+              <FormLabel>What type of program</FormLabel>
               <FormControl>
-                <Input
-                  className="rounded-xl border-none bg-primarylight"
-                  placeholder="enter the type of program"
-                  {...field}
-                />
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="hackathon" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Hackathon</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="workshop" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Workshop</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="seminar" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Seminar</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="event" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Event</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="line"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="space-y-3">
               <FormLabel>Offline or Online</FormLabel>
               <FormControl>
-                <Input
-                  className="rounded-xl border-none bg-primarylight"
-                  placeholder="type ur answer"
-                  {...field}
-                />
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="offline" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Offline</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="online" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Online</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -201,14 +247,27 @@ const PostForm = () => {
           control={form.control}
           name="paid"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Paid or Free</FormLabel>
+            <FormItem className="space-y-3">
+              <FormLabel>Offline or Online</FormLabel>
               <FormControl>
-                <Input
-                  className="rounded-xl border-none bg-primarylight"
-                  placeholder="type ur answer"
-                  {...field}
-                />
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="free" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Free</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="paid" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Paid</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -219,17 +278,29 @@ const PostForm = () => {
           control={form.control}
           name="invite"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Invitation ( "open for all" or "only for current college
-                students" )
-              </FormLabel>
+            <FormItem className="space-y-3">
+              <FormLabel>Invitation</FormLabel>
               <FormControl>
-                <Input
-                  className="rounded-xl border-none bg-primarylight"
-                  placeholder="type ur answer"
-                  {...field}
-                />
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="open for all" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Open for all</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="only for current college students" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Only for Current college students
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>

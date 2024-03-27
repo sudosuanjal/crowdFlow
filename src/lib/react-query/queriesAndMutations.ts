@@ -38,6 +38,8 @@ export const useSignOut = () => {
 //posts
 
 export const useCreatePost = () => {
+  console.log("inside useCreatPost");
+
   const queryClinet = useQueryClient();
   return useMutation({
     mutationFn: (post: TNewPost) => createPost(post),

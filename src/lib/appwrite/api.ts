@@ -118,6 +118,8 @@ export async function createPost(post: TNewPost) {
       throw Error;
     }
 
+    console.log("inside api: " + post.type);
+
     const createdPost = await datebases.createDocument(
       appwriteConfig.datebaseId,
       appwriteConfig.postCollectionId,
