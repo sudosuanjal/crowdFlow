@@ -53,7 +53,7 @@ const PostCard = ({ post }: PostCardProps) => {
           <FontAwesomeIcon icon={faPenToSquare} className="text-2xl" />
         </Link>
       </div>
-      <Link to={"/profile"} className="">
+      <Link to={`/post/${post.$id}`} className="">
         <img
           src={post.imageURL}
           className="rounded-xl object-center h-auto m-auto w-full"
@@ -65,10 +65,10 @@ const PostCard = ({ post }: PostCardProps) => {
         <p className="bg-primary1 rounded-xl px-3 py-1">{post.paid}</p>
         <p className="bg-primary1 rounded-xl px-3 py-1">{post.invite}</p>
       </div>
-      <Link to={"/profile"}>
+      <Link to={`/post/${post.$id}`}>
         <h1 className="font-bold text-2xl">{post.title}</h1>
       </Link>
-      <Link to={"/profile"}>
+      <Link to={`/post/${post.$id}`}>
         <p className="text-sm ">{post.sm_des}</p>
       </Link>
       <div className="flex flex-row  items-center justify-around gap-2">
