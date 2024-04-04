@@ -12,7 +12,8 @@ const PostDetails = () => {
   const { id } = useParams();
   const { data, isPending } = usePostById(id || "");
   const { user } = useUserContext();
-  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
+  //isDeleting
+  const { mutate: deletePost } = useDeletePost();
 
   const handleDeletePost = () => {
     deletePost({ postID: data?.$id, imageID: data?.imageID });
